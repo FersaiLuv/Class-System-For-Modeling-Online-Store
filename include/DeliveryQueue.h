@@ -1,41 +1,41 @@
 #pragma once
-// Заголовочный файл класса DeliveryQueue
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° DeliveryQueue
 #ifndef DELIVERY_QUEUE_H
 #define DELIVERY_QUEUE_H
 
-#define MAX_ORDERS 1000 // Макс. кол-во заказов в очереди
+#define MAX_ORDERS 1000 // РњР°РєСЃ. РєРѕР»-РІРѕ Р·Р°РєР°Р·РѕРІ РІ РѕС‡РµСЂРµРґРё
 
-#include "Order.h" // Заказ
-#include "SortStrategy.h"  // Известные стратегии
+#include "Order.h" // Р—Р°РєР°Р·
+#include "SortStrategy.h"  // РР·РІРµСЃС‚РЅС‹Рµ СЃС‚СЂР°С‚РµРіРёРё
 
-// Структура с неким блоком заказа. Каждый блок хранит сам заказ и указатель на следующий в очереде
+// РЎС‚СЂСѓРєС‚СѓСЂР° СЃ РЅРµРєРёРј Р±Р»РѕРєРѕРј Р·Р°РєР°Р·Р°. РљР°Р¶РґС‹Р№ Р±Р»РѕРє С…СЂР°РЅРёС‚ СЃР°Рј Р·Р°РєР°Р· Рё СѓРєР°Р·Р°С‚РµР»СЊ РЅР° СЃР»РµРґСѓСЋС‰РёР№ РІ РѕС‡РµСЂРµРґРµ
 struct QueueNode {
     Order* order;
     QueueNode* next;
-    QueueNode(Order* ord); // Конструктор блока
+    QueueNode(Order* ord); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±Р»РѕРєР°
 };
 
-// Класс Очередь
+// РљР»Р°СЃСЃ РћС‡РµСЂРµРґСЊ
 class DeliveryQueue {
 private:
-    QueueNode* head; // Указатель на  блок заказа в очереди
-    QueueNode* tail; // Указатель на последний блок заказа в очереди 
-    unsigned int order_count; // Счётчик заказов
+    QueueNode* head; // РЈРєР°Р·Р°С‚РµР»СЊ РЅР°  Р±Р»РѕРє Р·Р°РєР°Р·Р° РІ РѕС‡РµСЂРµРґРё
+    QueueNode* tail; // РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РїРѕСЃР»РµРґРЅРёР№ Р±Р»РѕРє Р·Р°РєР°Р·Р° РІ РѕС‡РµСЂРµРґРё 
+    unsigned int order_count; // РЎС‡С‘С‚С‡РёРє Р·Р°РєР°Р·РѕРІ
 
 public:
-    DeliveryQueue(); // Конструктор без параметров
+    DeliveryQueue(); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
 
-    // Основные методы
-    void addOrder(Order* order); // добавить заказ
-    Order* getNextOrder(); // Взять заказ
-    void show_all_orders(); // Показать все заказы
+    // РћСЃРЅРѕРІРЅС‹Рµ РјРµС‚РѕРґС‹
+    void addOrder(Order* order); // РґРѕР±Р°РІРёС‚СЊ Р·Р°РєР°Р·
+    Order* getNextOrder(); // Р’Р·СЏС‚СЊ Р·Р°РєР°Р·
+    void show_all_orders(); // РџРѕРєР°Р·Р°С‚СЊ РІСЃРµ Р·Р°РєР°Р·С‹
 
-    // Методы для стратегий
-    void getOrdersForSorting(Order* orders[], unsigned int& count); // Отдать заказы из очереди на сортировку (в массив)
-    void updateQueueAfterSorting(Order* orders[], unsigned int count); // Взять отсортированные заказы
-    void applyStrategy(SortStrategy* strategy); // Установить и применить стратегию сортировки
+    // РњРµС‚РѕРґС‹ РґР»СЏ СЃС‚СЂР°С‚РµРіРёР№
+    void getOrdersForSorting(Order* orders[], unsigned int& count); // РћС‚РґР°С‚СЊ Р·Р°РєР°Р·С‹ РёР· РѕС‡РµСЂРµРґРё РЅР° СЃРѕСЂС‚РёСЂРѕРІРєСѓ (РІ РјР°СЃСЃРёРІ)
+    void updateQueueAfterSorting(Order* orders[], unsigned int count); // Р’Р·СЏС‚СЊ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ Р·Р°РєР°Р·С‹
+    void applyStrategy(SortStrategy* strategy); // РЈСЃС‚Р°РЅРѕРІРёС‚СЊ Рё РїСЂРёРјРµРЅРёС‚СЊ СЃС‚СЂР°С‚РµРіРёСЋ СЃРѕСЂС‚РёСЂРѕРІРєРё
 
-    ~DeliveryQueue(); // Деструктор 
+    ~DeliveryQueue(); // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ 
 };
 
 #endif

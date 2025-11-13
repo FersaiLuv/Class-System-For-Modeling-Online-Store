@@ -1,19 +1,19 @@
-// Определние класса DeliveryQueue Очередь FIFO
+// РћРїСЂРµРґРµР»РЅРёРµ РєР»Р°СЃСЃР° DeliveryQueue РћС‡РµСЂРµРґСЊ FIFO
 #include "DeliveryQueue.h"
 
-// Конструктор структуры QueueNode
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃС‚СЂСѓРєС‚СѓСЂС‹ QueueNode
 QueueNode::QueueNode(Order* ord) : order(ord), next(nullptr) {}
 
 
 DeliveryQueue::DeliveryQueue() : head(nullptr), tail(nullptr), order_count(0) {}
 
-// Методы
-void DeliveryQueue::addOrder(Order* order) // добавить заказ
+// РњРµС‚РѕРґС‹
+void DeliveryQueue::addOrder(Order* order) // РґРѕР±Р°РІРёС‚СЊ Р·Р°РєР°Р·
 {
-	// Выделение памяти под блок с заказом
+	// Р’С‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РїРѕРґ Р±Р»РѕРє СЃ Р·Р°РєР°Р·РѕРј
 	QueueNode* new_node = new QueueNode(order);
 
-	// Проверка: если очередь пуста, то созданный блок становится головой и концом, а следующий уже концом
+	// РџСЂРѕРІРµСЂРєР°: РµСЃР»Рё РѕС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°, С‚Рѕ СЃРѕР·РґР°РЅРЅС‹Р№ Р±Р»РѕРє СЃС‚Р°РЅРѕРІРёС‚СЃСЏ РіРѕР»РѕРІРѕР№ Рё РєРѕРЅС†РѕРј, Р° СЃР»РµРґСѓСЋС‰РёР№ СѓР¶Рµ РєРѕРЅС†РѕРј
 	if (tail == nullptr) {
 		head = new_node;
 		tail = new_node;
@@ -24,104 +24,104 @@ void DeliveryQueue::addOrder(Order* order) // добавить заказ
 	}
 
 	order_count++;
-	std::cout << "Заказ № " << order->getId() << " добавлен в очередь" << std::endl;
+	std::cout << "Р—Р°РєР°Р· в„– " << order->getId() << " РґРѕР±Р°РІР»РµРЅ РІ РѕС‡РµСЂРµРґСЊ" << std::endl;
 }
 
-Order* DeliveryQueue::getNextOrder() // Взятие заказа из очереди
+Order* DeliveryQueue::getNextOrder() // Р’Р·СЏС‚РёРµ Р·Р°РєР°Р·Р° РёР· РѕС‡РµСЂРµРґРё
 {
 	if (head == nullptr) {
-		std::cout << "Очередь пуста" << std::endl;
+		std::cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°" << std::endl;
 		return nullptr;
 	}
 
-	// Запоминаем блок (берем первый заказ)
+	// Р—Р°РїРѕРјРёРЅР°РµРј Р±Р»РѕРє (Р±РµСЂРµРј РїРµСЂРІС‹Р№ Р·Р°РєР°Р·)
 	QueueNode* first_node = head;
 	Order* first_order = first_node->order;
 
-	// Далее перемещаем голову из очереди на следующий заказ
+	// Р”Р°Р»РµРµ РїРµСЂРµРјРµС‰Р°РµРј РіРѕР»РѕРІСѓ РёР· РѕС‡РµСЂРµРґРё РЅР° СЃР»РµРґСѓСЋС‰РёР№ Р·Р°РєР°Р·
 	head = head->next;
 
-	// Если голова стала указывать на пустоту, значит очередь опустела
+	// Р•СЃР»Рё РіРѕР»РѕРІР° СЃС‚Р°Р»Р° СѓРєР°Р·С‹РІР°С‚СЊ РЅР° РїСѓСЃС‚РѕС‚Сѓ, Р·РЅР°С‡РёС‚ РѕС‡РµСЂРµРґСЊ РѕРїСѓСЃС‚РµР»Р°
 	if (head == nullptr) {
 		tail = nullptr;
 	}
 
-	// Очищаем очередь (Берем первый заказ из очереди)
+	// РћС‡РёС‰Р°РµРј РѕС‡РµСЂРµРґСЊ (Р‘РµСЂРµРј РїРµСЂРІС‹Р№ Р·Р°РєР°Р· РёР· РѕС‡РµСЂРµРґРё)
 	delete first_node;
 	order_count--;
 
-	std::cout << "Заказ №" << first_order->getId() << " взят из очереди" << std::endl;
+	std::cout << "Р—Р°РєР°Р· в„–" << first_order->getId() << " РІР·СЏС‚ РёР· РѕС‡РµСЂРµРґРё" << std::endl;
 	return first_order;
 }
 
-void DeliveryQueue::show_all_orders() // Показать все заказы
+void DeliveryQueue::show_all_orders() // РџРѕРєР°Р·Р°С‚СЊ РІСЃРµ Р·Р°РєР°Р·С‹
 {
 	if (head == nullptr) {
-		std::cout << "Очередь пуста" << std::endl;
+		std::cout << "РћС‡РµСЂРµРґСЊ РїСѓСЃС‚Р°" << std::endl;
 		return;
 	}
 
-	std::cout << "=== ОЧЕРЕДЬ ДОСТАВКИ (" << order_count << " заказов) ===" << std::endl;
+	std::cout << "=== РћР§Р•Р Р•Р”Р¬ Р”РћРЎРўРђР’РљР (" << order_count << " Р·Р°РєР°Р·РѕРІ) ===" << std::endl;
 
-	QueueNode* current = head;  // Начинаем с головы
+	QueueNode* current = head;  // РќР°С‡РёРЅР°РµРј СЃ РіРѕР»РѕРІС‹
 	int position = 1;
 
 	while (current != nullptr) {
-		std::cout << position << ". Заказ №" << current->order->getId();
-		std::cout << " | " << current->order->getDistance() << " км";
+		std::cout << position << ". Р—Р°РєР°Р· в„–" << current->order->getId();
+		std::cout << " | " << current->order->getDistance() << " РєРј";
 		std::cout << " | " << current->order->getDate() << std::endl;
 
-		current = current->next;  // Переходим к следующему блоку
+		current = current->next;  // РџРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµРјСѓ Р±Р»РѕРєСѓ
 		position++;
 	}
 }
 
-// Методы для стратегий
-void DeliveryQueue::getOrdersForSorting(Order* orders[], unsigned int& count) // Метод выгрузки всех заказов из очереди во временный массив для сортировки
+// РњРµС‚РѕРґС‹ РґР»СЏ СЃС‚СЂР°С‚РµРіРёР№
+void DeliveryQueue::getOrdersForSorting(Order* orders[], unsigned int& count) // РњРµС‚РѕРґ РІС‹РіСЂСѓР·РєРё РІСЃРµС… Р·Р°РєР°Р·РѕРІ РёР· РѕС‡РµСЂРµРґРё РІРѕ РІСЂРµРјРµРЅРЅС‹Р№ РјР°СЃСЃРёРІ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё
 {
-	QueueNode* current = head; // Текущий заказ
-	count = 0; // Обнуляем кол-во заказов (пересчитываться будет заново)
+	QueueNode* current = head; // РўРµРєСѓС‰РёР№ Р·Р°РєР°Р·
+	count = 0; // РћР±РЅСѓР»СЏРµРј РєРѕР»-РІРѕ Р·Р°РєР°Р·РѕРІ (РїРµСЂРµСЃС‡РёС‚С‹РІР°С‚СЊСЃСЏ Р±СѓРґРµС‚ Р·Р°РЅРѕРІРѕ)
 
-	while (current != nullptr && count < MAX_ORDERS) { // Пока есть заказы загружаем их в массив
+	while (current != nullptr && count < MAX_ORDERS) { // РџРѕРєР° РµСЃС‚СЊ Р·Р°РєР°Р·С‹ Р·Р°РіСЂСѓР¶Р°РµРј РёС… РІ РјР°СЃСЃРёРІ
 
 		orders[count] = current->order;
 		current = current->next;
-		count++; // считаем заказы
+		count++; // СЃС‡РёС‚Р°РµРј Р·Р°РєР°Р·С‹
 	}
 }
 
-void DeliveryQueue::updateQueueAfterSorting(Order* orders[], unsigned int count) // Метод выгрузки отсортированных заказов из массива в очередь
+void DeliveryQueue::updateQueueAfterSorting(Order* orders[], unsigned int count) // РњРµС‚РѕРґ РІС‹РіСЂСѓР·РєРё РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹С… Р·Р°РєР°Р·РѕРІ РёР· РјР°СЃСЃРёРІР° РІ РѕС‡РµСЂРµРґСЊ
 {
-	// Отчистка текущей очереди
+	// РћС‚С‡РёСЃС‚РєР° С‚РµРєСѓС‰РµР№ РѕС‡РµСЂРµРґРё
 	while (head != nullptr) {
 		QueueNode* tmp = head;
 		head = head->next;
 		delete tmp;
 	}
 
-	// Перстройка очереди
+	// РџРµСЂСЃС‚СЂРѕР№РєР° РѕС‡РµСЂРµРґРё
 	head = nullptr;
 	tail = nullptr;
 	order_count = 0;
 
-	// Добавляем заказы из массива в чередь
+	// Р”РѕР±Р°РІР»СЏРµРј Р·Р°РєР°Р·С‹ РёР· РјР°СЃСЃРёРІР° РІ С‡РµСЂРµРґСЊ
 	for (int i = 0; i < count; i++) {
 		addOrder(orders[i]);
 	}
 }
 
-void DeliveryQueue::applyStrategy(SortStrategy* strategy) // Установка и применение стратегии сортировки 
+void DeliveryQueue::applyStrategy(SortStrategy* strategy) // РЈСЃС‚Р°РЅРѕРІРєР° Рё РїСЂРёРјРµРЅРµРЅРёРµ СЃС‚СЂР°С‚РµРіРёРё СЃРѕСЂС‚РёСЂРѕРІРєРё 
 {
 	if (strategy != nullptr) {
 		strategy->sortQueue(this);
 	}
 }
 
-DeliveryQueue::~DeliveryQueue() // Деструктор
+DeliveryQueue::~DeliveryQueue() // Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 {
 	while (head != nullptr) {
-		QueueNode* temp = head;   // Запоминаем текущий блок
-		head = head->next;        // Переходим к следующему
-		delete temp;              // Удаляем запомненный блок
+		QueueNode* temp = head;   // Р—Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰РёР№ Р±Р»РѕРє
+		head = head->next;        // РџРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµРјСѓ
+		delete temp;              // РЈРґР°Р»СЏРµРј Р·Р°РїРѕРјРЅРµРЅРЅС‹Р№ Р±Р»РѕРє
 	}
 }

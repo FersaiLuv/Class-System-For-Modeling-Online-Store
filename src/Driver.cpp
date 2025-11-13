@@ -1,4 +1,4 @@
-// Îïðåäåëåíèå êëàññà Driver
+// ÐžÐ¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ðµ ÐºÐ»Ð°ÑÑÐ° Driver
 
 #include "Driver.h"
 
@@ -6,25 +6,25 @@ Driver::Driver(std::string driver_name, DeliveryQueue* queue) :
     name(driver_name), delivery_queue(queue), delivered_orders(0) {
 }
 
-std::string Driver::getName() const { return name; } // Ïîëó÷åíèå èìåíè
+std::string Driver::getName() const { return name; } // ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ Ð¸Ð¼ÐµÐ½Ð¸
 
-bool Driver::deliverNextOrder() // Äîñòàâêà çàêàçà
+bool Driver::deliverNextOrder() // Ð”Ð¾ÑÑ‚Ð°Ð²ÐºÐ° Ð·Ð°ÐºÐ°Ð·Ð°
 {
-    Order* order = delivery_queue->getNextOrder(); // Áåðåì çàêàç èç î÷åðåäè
+    Order* order = delivery_queue->getNextOrder(); // Ð‘ÐµÑ€ÐµÐ¼ Ð·Ð°ÐºÐ°Ð· Ð¸Ð· Ð¾Ñ‡ÐµÑ€ÐµÐ´Ð¸
 
     if (order != nullptr) {
-        std::cout << "Âîäèòåëü (" << name << ") äîñòàâëÿåò çàêàç ¹" << order->getId() << std::endl;
+        std::cout << "Ð’Ð¾Ð´Ð¸Ñ‚ÐµÐ»ÑŒ (" << name << ") Ð´Ð¾ÑÑ‚Ð°Ð²Ð»ÑÐµÑ‚ Ð·Ð°ÐºÐ°Ð· â„–" << order->getId() << std::endl;
         order->markCompleted();
-        std::cout << "Çàêàç ¹" << order->getId() << " äîñòàâëåí!" << std::endl;
+        std::cout << "Ð—Ð°ÐºÐ°Ð· â„–" << order->getId() << " Ð´Ð¾ÑÑ‚Ð°Ð²Ð»ÐµÐ½!" << std::endl;
         return true;
     }
     else {
-        std::cout << "Íåò çàêàçîâ äëÿ äîñòàâêè" << std::endl;
+        std::cout << "ÐÐµÑ‚ Ð·Ð°ÐºÐ°Ð·Ð¾Ð² Ð´Ð»Ñ Ð´Ð¾ÑÑ‚Ð°Ð²ÐºÐ¸" << std::endl;
         return false;
     }
 }
 
-void Driver::show_queue() // Ïîêàçàòü î÷åðåäü çàêàçîâ
+void Driver::show_queue() // ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ Ð¾Ñ‡ÐµÑ€ÐµÐ´ÑŒ Ð·Ð°ÐºÐ°Ð·Ð¾Ð²
 {
     delivery_queue->show_all_orders();
 }

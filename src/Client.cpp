@@ -1,20 +1,20 @@
-// Определение класса Client
+// РћРїСЂРµРґРµР»РµРЅРёРµ РєР»Р°СЃСЃР° Client
 #include "Client.h"
 
 Client::Client(unsigned int c_id, std::string c_name, std::string c_address, double c_distance) :
     id(c_id), name(c_name), address(c_address), distance(c_distance) {
 }
 
-// Геттеры
+// Р“РµС‚С‚РµСЂС‹
 int Client::getId() const { return id; }
 std::string Client::getName() const { return name; }
 std::string Client::getAddress() const { return address; }
 double Client::getDistance() const { return distance; }
 
-// Метод вывода информации о клиенте
+// РњРµС‚РѕРґ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєР»РёРµРЅС‚Рµ
 void Client::show_info()
 {
-    std::cout << "Клиент: " << name << " (ID: " << id << ")" << std::endl;
-    std::cout << "Адрес: " << address << std::endl;
-    std::cout << "Расстояние от склада: " << distance << " км" << std::endl;
+    std::cout << "РљР»РёРµРЅС‚: " << name << " (ID: " << id << ")" << std::endl;
+    std::cout << "РђРґСЂРµСЃ: " << address << std::endl;
+    std::cout << "Р Р°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ СЃРєР»Р°РґР°: " << distance << " РєРј" << std::endl;
 }

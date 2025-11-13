@@ -1,26 +1,26 @@
 #pragma once
-// Заголовочный файл класса Driver
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° Driver
 #ifndef DRIVER_H
 #define DRIVER_H
 
 #include <string>
 #include <iostream>
-#include "DeliveryQueue.h" // Очередь
-#include "Order.h" // Заказ
+#include "DeliveryQueue.h" // РћС‡РµСЂРµРґСЊ
+#include "Order.h" // Р—Р°РєР°Р·
 
-// Класс - водитель (экспедитор/доставщик)
+// РљР»Р°СЃСЃ - РІРѕРґРёС‚РµР»СЊ (СЌРєСЃРїРµРґРёС‚РѕСЂ/РґРѕСЃС‚Р°РІС‰РёРє)
 class Driver {
 private:
-    std::string name; // Имя
-    DeliveryQueue* delivery_queue; // Очередь заказов
-    unsigned int delivered_orders; // Кол-во доставленных заказов (опционально)
+    std::string name; // РРјСЏ
+    DeliveryQueue* delivery_queue; // РћС‡РµСЂРµРґСЊ Р·Р°РєР°Р·РѕРІ
+    unsigned int delivered_orders; // РљРѕР»-РІРѕ РґРѕСЃС‚Р°РІР»РµРЅРЅС‹С… Р·Р°РєР°Р·РѕРІ (РѕРїС†РёРѕРЅР°Р»СЊРЅРѕ)
 
 public:
     Driver(std::string driver_name, DeliveryQueue* queue);
 
-    std::string getName() const; // Получение имени
-    bool deliverNextOrder(); // Доставка заказа
-    void show_queue(); // Показать очередь заказов
+    std::string getName() const; // РџРѕР»СѓС‡РµРЅРёРµ РёРјРµРЅРё
+    bool deliverNextOrder(); // Р”РѕСЃС‚Р°РІРєР° Р·Р°РєР°Р·Р°
+    void show_queue(); // РџРѕРєР°Р·Р°С‚СЊ РѕС‡РµСЂРµРґСЊ Р·Р°РєР°Р·РѕРІ
 };
 
 #endif

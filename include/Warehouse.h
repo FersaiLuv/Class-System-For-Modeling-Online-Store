@@ -1,33 +1,33 @@
 #pragma once
-// Заголовочный файл класса Warehouse
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° Warehouse
 #ifndef WAREHOUSE_H
 #define WAREHOUSE_H
 
-#define MAX_PRODUCTS 200 // Максимальное кол-во разных товаров (видов/наименований)
+#define MAX_PRODUCTS 200 // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ СЂР°Р·РЅС‹С… С‚РѕРІР°СЂРѕРІ (РІРёРґРѕРІ/РЅР°РёРјРµРЅРѕРІР°РЅРёР№)
 
 #include <iostream>
-#include "Product.h" // Продукт
+#include "Product.h" // РџСЂРѕРґСѓРєС‚
 
-// Класс Склад
+// РљР»Р°СЃСЃ РЎРєР»Р°Рґ
 class Warehouse {
 private:
-    Product* products[MAX_PRODUCTS]; // Массив указателей на товары
-    unsigned int product_count; // Общее кол-во товаров на складе
-    std::string address; // Расположение склада (адрес)
+    Product* products[MAX_PRODUCTS]; // РњР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° С‚РѕРІР°СЂС‹
+    unsigned int product_count; // РћР±С‰РµРµ РєРѕР»-РІРѕ С‚РѕРІР°СЂРѕРІ РЅР° СЃРєР»Р°РґРµ
+    std::string address; // Р Р°СЃРїРѕР»РѕР¶РµРЅРёРµ СЃРєР»Р°РґР° (Р°РґСЂРµСЃ)
 
 public:
     Warehouse(std::string w_address);
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     std::string getLocation() const;
     unsigned int getProductCount() const;
 
-    // Методы
-    int addProduct(Product* product); // Добавление товара
-    bool checkProduct(unsigned int p_id); // Косвенная проверка наличия товара на складе
-    Product* findProduct(unsigned int p_id); // Поиск товара на складе по ID (для вычитки из склада)
-    bool reduceCountProducts(unsigned int p_id, unsigned int count); // Уменьшение кол-ва товара из склада (для вычитки из склада)
-    void show_all_products(); // Вывод все хтоваров на складе
+    // РњРµС‚РѕРґС‹
+    int addProduct(Product* product); // Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР°
+    bool checkProduct(unsigned int p_id); // РљРѕСЃРІРµРЅРЅР°СЏ РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ С‚РѕРІР°СЂР° РЅР° СЃРєР»Р°РґРµ
+    Product* findProduct(unsigned int p_id); // РџРѕРёСЃРє С‚РѕРІР°СЂР° РЅР° СЃРєР»Р°РґРµ РїРѕ ID (РґР»СЏ РІС‹С‡РёС‚РєРё РёР· СЃРєР»Р°РґР°)
+    bool reduceCountProducts(unsigned int p_id, unsigned int count); // РЈРјРµРЅСЊС€РµРЅРёРµ РєРѕР»-РІР° С‚РѕРІР°СЂР° РёР· СЃРєР»Р°РґР° (РґР»СЏ РІС‹С‡РёС‚РєРё РёР· СЃРєР»Р°РґР°)
+    void show_all_products(); // Р’С‹РІРѕРґ РІСЃРµ С…С‚РѕРІР°СЂРѕРІ РЅР° СЃРєР»Р°РґРµ
 };
 
 #endif

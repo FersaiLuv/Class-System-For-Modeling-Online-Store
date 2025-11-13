@@ -1,24 +1,24 @@
-// Реализация стратегий сортировки
+// Р РµР°Р»РёР·Р°С†РёСЏ СЃС‚СЂР°С‚РµРіРёР№ СЃРѕСЂС‚РёСЂРѕРІРєРё
 
 #include "SortStrategy.h"
 #include "DeliveryQueue.h"
 #include <iostream>
 
-// Определение и реализация сортировки по дате
+// РћРїСЂРµРґРµР»РµРЅРёРµ Рё СЂРµР°Р»РёР·Р°С†РёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕ РґР°С‚Рµ
 void DateStrategy::sortQueue(DeliveryQueue* queue)
 {
-	std::cout << "|СОРТИРОВКА ПО ДАТЕ|" << std::endl;
+	std::cout << "|РЎРћР РўРР РћР’РљРђ РџРћ Р”РђРўР•|" << std::endl;
 
-	Order* orders[MAX_ORDERS]; // Хранилище заказов (будут браться из очереди)
-	unsigned int count; // Подсчёт заказов
-	queue->getOrdersForSorting(orders, count); // Выгрузка заказов из очереди в массив
+	Order* orders[MAX_ORDERS]; // РҐСЂР°РЅРёР»РёС‰Рµ Р·Р°РєР°Р·РѕРІ (Р±СѓРґСѓС‚ Р±СЂР°С‚СЊСЃСЏ РёР· РѕС‡РµСЂРµРґРё)
+	unsigned int count; // РџРѕРґСЃС‡С‘С‚ Р·Р°РєР°Р·РѕРІ
+	queue->getOrdersForSorting(orders, count); // Р’С‹РіСЂСѓР·РєР° Р·Р°РєР°Р·РѕРІ РёР· РѕС‡РµСЂРµРґРё РІ РјР°СЃСЃРёРІ
 
 	if (count <= 1) {
-		std::cout << "Мало заказов для сортировки" << std::endl;
+		std::cout << "РњР°Р»Рѕ Р·Р°РєР°Р·РѕРІ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё" << std::endl;
 		return;
 	}
 
-	// Алгоритм сортировки методом пузырька
+	// РђР»РіРѕСЂРёС‚Рј СЃРѕСЂС‚РёСЂРѕРІРєРё РјРµС‚РѕРґРѕРј РїСѓР·С‹СЂСЊРєР°
 	for (int i = 0; i < count - 1; i++) {
 		for (int j = 0; j < count - i - 1; j++) {
 			if (orders[j]->getDateAsNumber() > orders[j + 1]->getDateAsNumber()) {
@@ -29,26 +29,26 @@ void DateStrategy::sortQueue(DeliveryQueue* queue)
 		}
 	}
 
-	// Выгрузка отсортированных заказов в очередь
+	// Р’С‹РіСЂСѓР·РєР° РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹С… Р·Р°РєР°Р·РѕРІ РІ РѕС‡РµСЂРµРґСЊ
 	queue->updateQueueAfterSorting(orders, count);
-	std::cout << "Очередь отсортирована по дате (" << count << " заказов)" << std::endl;
+	std::cout << "РћС‡РµСЂРµРґСЊ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅР° РїРѕ РґР°С‚Рµ (" << count << " Р·Р°РєР°Р·РѕРІ)" << std::endl;
 }
 
-// Определение и реализация сортировки по расстоянию (аналогия с предыдущим методом)
+// РћРїСЂРµРґРµР»РµРЅРёРµ Рё СЂРµР°Р»РёР·Р°С†РёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё РїРѕ СЂР°СЃСЃС‚РѕСЏРЅРёСЋ (Р°РЅР°Р»РѕРіРёСЏ СЃ РїСЂРµРґС‹РґСѓС‰РёРј РјРµС‚РѕРґРѕРј)
 void DistanceStrategy::sortQueue(DeliveryQueue* queue)
 {
-	std::cout << "|СОРТИРОВКА ПО РАССТОЯНИЮ|" << std::endl;
+	std::cout << "|РЎРћР РўРР РћР’РљРђ РџРћ Р РђРЎРЎРўРћРЇРќРР®|" << std::endl;
 
 	Order* orders[MAX_ORDERS];
 	unsigned int count;
 	queue->getOrdersForSorting(orders, count);
 
 	if (count <= 1) {
-		std::cout << "Мало заказов для сортировки" << std::endl;
+		std::cout << "РњР°Р»Рѕ Р·Р°РєР°Р·РѕРІ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё" << std::endl;
 		return;
 	}
 
-	// Алгоритм сортировки методом пузырька
+	// РђР»РіРѕСЂРёС‚Рј СЃРѕСЂС‚РёСЂРѕРІРєРё РјРµС‚РѕРґРѕРј РїСѓР·С‹СЂСЊРєР°
 	for (int i = 0; i < count - 1; i++) {
 		for (int j = 0; j < count - i - 1; j++) {
 			if (orders[j]->getDistance() > orders[j + 1]->getDistance()) {
@@ -59,7 +59,7 @@ void DistanceStrategy::sortQueue(DeliveryQueue* queue)
 		}
 	}
 
-	// Выгрузка отсортированных заказов в очередь
+	// Р’С‹РіСЂСѓР·РєР° РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹С… Р·Р°РєР°Р·РѕРІ РІ РѕС‡РµСЂРµРґСЊ
 	queue->updateQueueAfterSorting(orders, count);
-	std::cout << "Очередь отсортирована по расстоянию (" << count << " заказов)" << std::endl;
+	std::cout << "РћС‡РµСЂРµРґСЊ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅР° РїРѕ СЂР°СЃСЃС‚РѕСЏРЅРёСЋ (" << count << " Р·Р°РєР°Р·РѕРІ)" << std::endl;
 }

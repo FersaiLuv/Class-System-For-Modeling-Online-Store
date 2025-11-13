@@ -1,25 +1,25 @@
 #pragma once
-// Заголовочный файл класса WarehouseWorker (Кладовщик)
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° WarehouseWorker (РљР»Р°РґРѕРІС‰РёРє)
 #ifndef WAREHOUSE_WORKER_H
 #define WAREHOUSE_WORKER_H
 
 #include <string>
 #include <iostream>
-#include "Warehouse.h" // Склад
-#include "Order.h" // Заказ
+#include "Warehouse.h" // РЎРєР»Р°Рґ
+#include "Order.h" // Р—Р°РєР°Р·
 
-// Класс - кладовщик
+// РљР»Р°СЃСЃ - РєР»Р°РґРѕРІС‰РёРє
 class WarehouseWorker {
 private:
-    std::string name; // Имя 
-    Warehouse* warehouse; // Связанный склад
+    std::string name; // РРјСЏ 
+    Warehouse* warehouse; // РЎРІСЏР·Р°РЅРЅС‹Р№ СЃРєР»Р°Рґ
 
 public:
     WarehouseWorker(std::string worker_name, Warehouse* wh);
 
-    std::string getName() const; // Получение имени
-    bool releaseProduct(Order* order); // Отпустить товар со склада (на заказ) 
-    void receiveProduct(Product* product, int quantity); // Принять товар на склад
+    std::string getName() const; // РџРѕР»СѓС‡РµРЅРёРµ РёРјРµРЅРё
+    bool releaseProduct(Order* order); // РћС‚РїСѓСЃС‚РёС‚СЊ С‚РѕРІР°СЂ СЃРѕ СЃРєР»Р°РґР° (РЅР° Р·Р°РєР°Р·) 
+    void receiveProduct(Product* product, int quantity); // РџСЂРёРЅСЏС‚СЊ С‚РѕРІР°СЂ РЅР° СЃРєР»Р°Рґ
 };
 
 #endif

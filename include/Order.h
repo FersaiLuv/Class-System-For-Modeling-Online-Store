@@ -1,32 +1,32 @@
 #pragma once
-// Заголовочный файл класса Order
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° Order
 #ifndef ORDER_H
 #define ORDER_H
 
 #include <string>
 #include <iostream>
 
-// Подключение классов
+// РџРѕРґРєР»СЋС‡РµРЅРёРµ РєР»Р°СЃСЃРѕРІ
 #include "Product.h"
 #include "Client.h"
 
 class Order {
 private:
-    unsigned int id; // Id заказа
-    // Ссылки (на товар, на клиента)
+    unsigned int id; // Id Р·Р°РєР°Р·Р°
+    // РЎСЃС‹Р»РєРё (РЅР° С‚РѕРІР°СЂ, РЅР° РєР»РёРµРЅС‚Р°)
     Product* product;
     Client* client;
-    // Дата заказа (DD.MM.YYYY)
+    // Р”Р°С‚Р° Р·Р°РєР°Р·Р° (DD.MM.YYYY)
     unsigned int day;
     unsigned int month;
     unsigned int year;
-    std::string status; // Статус заказа
-    bool is_finish; // Флаг "завершённости" заказа
+    std::string status; // РЎС‚Р°С‚СѓСЃ Р·Р°РєР°Р·Р°
+    bool is_finish; // Р¤Р»Р°Рі "Р·Р°РІРµСЂС€С‘РЅРЅРѕСЃС‚Рё" Р·Р°РєР°Р·Р°
 
 public:
     Order(unsigned int o_id, Product* o_product, Client* o_client, unsigned int o_day, unsigned int o_month, unsigned int o_year);
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     unsigned int getId() const;
     Client* getClient() const;
     Product* getProduct() const;
@@ -39,11 +39,11 @@ public:
     bool getIsFinish() const;
     double getDistance() const;
 
-    // Сеттеры
+    // РЎРµС‚С‚РµСЂС‹
     void setStatus(std::string new_status);
     void markCompleted();
 
-    // Вывод информации о заказе
+    // Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ Р·Р°РєР°Р·Рµ
     void show_info();
 };
 

@@ -1,42 +1,42 @@
-// Реализаия класса WarehouseWorker
+// Р РµР°Р»РёР·Р°РёСЏ РєР»Р°СЃСЃР° WarehouseWorker
 #include "WarehouseWorker.h"
 
-// Класс - кладовщик
+// РљР»Р°СЃСЃ - РєР»Р°РґРѕРІС‰РёРє
 WarehouseWorker::WarehouseWorker(std::string worker_name, Warehouse* wh) :
     name(worker_name), warehouse(wh) {
 }
 
-std::string WarehouseWorker::getName() const { return name; } // Получение имени
+std::string WarehouseWorker::getName() const { return name; } // РџРѕР»СѓС‡РµРЅРёРµ РёРјРµРЅРё
 
-bool WarehouseWorker::releaseProduct(Order* order) // Отпустить товар со склада (на заказ) 
+bool WarehouseWorker::releaseProduct(Order* order) // РћС‚РїСѓСЃС‚РёС‚СЊ С‚РѕРІР°СЂ СЃРѕ СЃРєР»Р°РґР° (РЅР° Р·Р°РєР°Р·) 
 {
     Product* product = order->getProduct();
 
     if (warehouse->reduceCountProducts(product->getId(), 1)) {
-        std::cout << "Кладовщик (" << name << ") отпустил товар для заказа №" << order->getId() << std::endl;
-        order->setStatus("Готов к доставке");
+        std::cout << "РљР»Р°РґРѕРІС‰РёРє (" << name << ") РѕС‚РїСѓСЃС‚РёР» С‚РѕРІР°СЂ РґР»СЏ Р·Р°РєР°Р·Р° в„–" << order->getId() << std::endl;
+        order->setStatus("Р“РѕС‚РѕРІ Рє РґРѕСЃС‚Р°РІРєРµ");
         return true;
     }
     else {
-        std::cout << "Ошибка: товар отсутствует на складе!" << std::endl;
+        std::cout << "РћС€РёР±РєР°: С‚РѕРІР°СЂ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РЅР° СЃРєР»Р°РґРµ!" << std::endl;
         return false;
     }
 }
 
-void WarehouseWorker::receiveProduct(Product* product, int quantity) // Принять товар на склад
+void WarehouseWorker::receiveProduct(Product* product, int quantity) // РџСЂРёРЅСЏС‚СЊ С‚РѕРІР°СЂ РЅР° СЃРєР»Р°Рґ
 {
-    // Поиск, есть ли такой товар уже на складе
+    // РџРѕРёСЃРє, РµСЃС‚СЊ Р»Рё С‚Р°РєРѕР№ С‚РѕРІР°СЂ СѓР¶Рµ РЅР° СЃРєР»Р°РґРµ
     Product* existing_product = warehouse->findProduct(product->getId());
 
     if (existing_product) {
-        // Товар есть - увеличиваем количество
+        // РўРѕРІР°СЂ РµСЃС‚СЊ - СѓРІРµР»РёС‡РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ
         existing_product->setCount(existing_product->getCount() + quantity);
     }
     else {
-        // Товара нет - добавляем новый
+        // РўРѕРІР°СЂР° РЅРµС‚ - РґРѕР±Р°РІР»СЏРµРј РЅРѕРІС‹Р№
         product->setCount(quantity);
         warehouse->addProduct(product);
     }
 
-    std::cout << "Кладовщик " << name << " принял " << quantity << " шт. товара на склад" << std::endl;
+    std::cout << "РљР»Р°РґРѕРІС‰РёРє " << name << " РїСЂРёРЅСЏР» " << quantity << " С€С‚. С‚РѕРІР°СЂР° РЅР° СЃРєР»Р°Рґ" << std::endl;
 }

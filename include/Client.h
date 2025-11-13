@@ -1,5 +1,5 @@
 #pragma once
-// Заголовочный файл класса Client
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° Client
 #ifndef CLIENT_H
 #define CLIENT_H
 
@@ -8,21 +8,21 @@
 
 class Client {
 private:
-    unsigned int id; // Id клиента
-    std::string name; // Имя клиента
-    std::string address; // Адрес 
-    double distance; // Расстояние от склада до клиента
+    unsigned int id; // Id РєР»РёРµРЅС‚Р°
+    std::string name; // РРјСЏ РєР»РёРµРЅС‚Р°
+    std::string address; // РђРґСЂРµСЃ 
+    double distance; // Р Р°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ СЃРєР»Р°РґР° РґРѕ РєР»РёРµРЅС‚Р°
 
 public:
     Client(unsigned int c_id, std::string c_name, std::string c_address, double c_distance);
 
-    // Геттеры
+    // Р“РµС‚С‚РµСЂС‹
     int getId() const;
     std::string getName() const;
     std::string getAddress() const;
     double getDistance() const;
 
-    // Метод вывода информации о клиенте
+    // РњРµС‚РѕРґ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєР»РёРµРЅС‚Рµ
     void show_info();
 };
 

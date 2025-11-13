@@ -1,5 +1,5 @@
 #pragma once
-// Заголовочный файл класса Product
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° Product
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
@@ -8,24 +8,24 @@
 
 class Product {
 private:
-	unsigned int id; // Id товара
-	std::string name; // Название
-	double price; // Цена
-	unsigned int count; // Кол-во на складе
+	unsigned int id; // Id С‚РѕРІР°СЂР°
+	std::string name; // РќР°Р·РІР°РЅРёРµ
+	double price; // Р¦РµРЅР°
+	unsigned int count; // РљРѕР»-РІРѕ РЅР° СЃРєР»Р°РґРµ
 
 public:
-	Product(unsigned int p_id, std::string p_name, double p_price, unsigned int p_count); // Конструктор
+	Product(unsigned int p_id, std::string p_name, double p_price, unsigned int p_count); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 
-	// Геттеры
+	// Р“РµС‚С‚РµСЂС‹
 	unsigned int getId() const;
 	std::string getName() const;
 	double getPrice() const;
 	unsigned int getCount() const;
 
-	// Сеттер
+	// РЎРµС‚С‚РµСЂ
 	void setCount(unsigned int new_count);
 
-	// Метод вывода информации о товаре
+	// РњРµС‚РѕРґ РІС‹РІРѕРґР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚РѕРІР°СЂРµ
 	void show_info();
 };
 

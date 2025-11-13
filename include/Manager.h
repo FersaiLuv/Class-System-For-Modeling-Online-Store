@@ -1,26 +1,26 @@
 #pragma once
-// Заголовочный файл класса Manager
+// Р—Р°РіРѕР»РѕРІРѕС‡РЅС‹Р№ С„Р°Р№Р» РєР»Р°СЃСЃР° Manager
 #ifndef MANAGER_H
 #define MANAGER_H
 
 #include <string>
 #include <iostream>
-#include "Warehouse.h" // Склад
-#include "Order.h" // Заказ
-#include "DeliveryQueue.h" // Очередь
+#include "Warehouse.h" // РЎРєР»Р°Рґ
+#include "Order.h" // Р—Р°РєР°Р·
+#include "DeliveryQueue.h" // РћС‡РµСЂРµРґСЊ
 
-// Менеджер
+// РњРµРЅРµРґР¶РµСЂ
 class Manager {
 private:
-    std::string name; // Имя 
-    Warehouse* warehouse; // Склад, с которым связан менеджер
-    DeliveryQueue* delivery_queue; // Связь с очередью
+    std::string name; // РРјСЏ 
+    Warehouse* warehouse; // РЎРєР»Р°Рґ, СЃ РєРѕС‚РѕСЂС‹Рј СЃРІСЏР·Р°РЅ РјРµРЅРµРґР¶РµСЂ
+    DeliveryQueue* delivery_queue; // РЎРІСЏР·СЊ СЃ РѕС‡РµСЂРµРґСЊСЋ
 
 public:
     Manager(std::string m_name, Warehouse* wh, DeliveryQueue* d_queue);
 
-    std::string getName() const; // Получение имени
-    bool processOrder(Order* order); // Обработка заказа от клиента
+    std::string getName() const; // РџРѕР»СѓС‡РµРЅРёРµ РёРјРµРЅРё
+    bool processOrder(Order* order); // РћР±СЂР°Р±РѕС‚РєР° Р·Р°РєР°Р·Р° РѕС‚ РєР»РёРµРЅС‚Р°
 };
 
 #endif

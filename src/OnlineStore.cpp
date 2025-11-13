@@ -1,24 +1,24 @@
-// Определение управляющего класса OnlineStore
+// РћРїСЂРµРґРµР»РµРЅРёРµ СѓРїСЂР°РІР»СЏСЋС‰РµРіРѕ РєР»Р°СЃСЃР° OnlineStore
 
 #include <fstream>
 #include "OnlineStore.h"
 
 
-OnlineStore::OnlineStore(std::string warehouse_address)  // Адрес магазина (склада) в параметрах конструктора 
+OnlineStore::OnlineStore(std::string warehouse_address)  // РђРґСЂРµСЃ РјР°РіР°Р·РёРЅР° (СЃРєР»Р°РґР°) РІ РїР°СЂР°РјРµС‚СЂР°С… РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° 
 {
-    std::cout << "СОЗДАНИЕ ОНЛАЙН-МАГАЗИНА" << std::endl;
+    std::cout << "РЎРћР—Р”РђРќРР• РћРќР›РђР™Рќ-РњРђР“РђР—РРќРђ" << std::endl;
 
     warehouse = new Warehouse(warehouse_address);
     delivery_queue = new DeliveryQueue();
-    manager = new Manager("Евгений", warehouse, delivery_queue);
-    worker = new WarehouseWorker("Анатолий", warehouse);
-    driver = new Driver("Максим", delivery_queue);
+    manager = new Manager("Р•РІРіРµРЅРёР№", warehouse, delivery_queue);
+    worker = new WarehouseWorker("РђРЅР°С‚РѕР»РёР№", warehouse);
+    driver = new Driver("РњР°РєСЃРёРј", delivery_queue);
     current_strategy = nullptr;
 
-    std::cout << "Система готова к работе!" << std::endl;
+    std::cout << "РЎРёСЃС‚РµРјР° РіРѕС‚РѕРІР° Рє СЂР°Р±РѕС‚Рµ!" << std::endl;
 }
 
-// Установка и применение стратегии
+// РЈСЃС‚Р°РЅРѕРІРєР° Рё РїСЂРёРјРµРЅРµРЅРёРµ СЃС‚СЂР°С‚РµРіРёРё
 void OnlineStore::applySortingStrategy(SortStrategy* strategy)
 {
     current_strategy = strategy;
@@ -27,83 +27,83 @@ void OnlineStore::applySortingStrategy(SortStrategy* strategy)
     }
 }
 
-// Добавить товар на склад
+// Р”РѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ РЅР° СЃРєР»Р°Рґ
 void OnlineStore::addProductToWarehouse(Product* product, unsigned int initial_quantity)
 {
-    std::cout << "ДОБАВЛЕНИЕ ТОВАРА НА СКЛАД:" << std::endl;
-    std::cout << "Товар: " << product->getName() << std::endl;
-    std::cout << "Количество: " << initial_quantity << " шт." << std::endl;
+    std::cout << "Р”РћР‘РђР’Р›Р•РќРР• РўРћР’РђР Рђ РќРђ РЎРљР›РђР”:" << std::endl;
+    std::cout << "РўРѕРІР°СЂ: " << product->getName() << std::endl;
+    std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ: " << initial_quantity << " С€С‚." << std::endl;
 
     product->setCount(initial_quantity);
     warehouse->addProduct(product);
 }
 
-// Создать и обработать заказ
+// РЎРѕР·РґР°С‚СЊ Рё РѕР±СЂР°Р±РѕС‚Р°С‚СЊ Р·Р°РєР°Р·
 void OnlineStore::processNewOrder(unsigned int order_id, Product* product, Client* client, unsigned int day, unsigned int month, unsigned int year)
 {
-    std::cout << "ОБРАБОТКА НОВОГО ЗАКАЗА №" << order_id << std::endl;
+    std::cout << "РћР‘Р РђР‘РћРўРљРђ РќРћР’РћР“Рћ Р—РђРљРђР—Рђ в„–" << order_id << std::endl;
 
-    // Создание заказ
+    // РЎРѕР·РґР°РЅРёРµ Р·Р°РєР°Р·
     Order* order = new Order(order_id, product, client, day, month, year);
-    // Обработка через менеджера
+    // РћР±СЂР°Р±РѕС‚РєР° С‡РµСЂРµР· РјРµРЅРµРґР¶РµСЂР°
     if (manager->processOrder(order)) {
         worker->releaseProduct(order);
-        std::cout << "Заказ №" << order_id << " готов к доставке!" << std::endl;
+        std::cout << "Р—Р°РєР°Р· в„–" << order_id << " РіРѕС‚РѕРІ Рє РґРѕСЃС‚Р°РІРєРµ!" << std::endl;
     }
     else {
-        std::cout << "Заказ №" << order_id << " ожидает поставки товара" << std::endl;
+        std::cout << "Р—Р°РєР°Р· в„–" << order_id << " РѕР¶РёРґР°РµС‚ РїРѕСЃС‚Р°РІРєРё С‚РѕРІР°СЂР°" << std::endl;
     }
 }
 
-// Доставить несколько заказов
+// Р”РѕСЃС‚Р°РІРёС‚СЊ РЅРµСЃРєРѕР»СЊРєРѕ Р·Р°РєР°Р·РѕРІ
 void OnlineStore::deliverOrders(unsigned int orders_count)
 {
-    std::cout << "ГОТОВИМ ДОСТАВКУ " << orders_count << " ЗАКАЗА(ОВ)" << std::endl;
+    std::cout << "Р“РћРўРћР’РРњ Р”РћРЎРўРђР’РљРЈ " << orders_count << " Р—РђРљРђР—Рђ(РћР’)" << std::endl;
 
     for (int i = 0; i < orders_count; i++) {
-        std::cout << "--- Доставка " << (i + 1) << " ---" << std::endl;
+        std::cout << "--- Р”РѕСЃС‚Р°РІРєР° " << (i + 1) << " ---" << std::endl;
 
         if (!driver->deliverNextOrder()) {
-            std::cout << "Доставка прервана: заказы закончились" << std::endl;
+            std::cout << "Р”РѕСЃС‚Р°РІРєР° РїСЂРµСЂРІР°РЅР°: Р·Р°РєР°Р·С‹ Р·Р°РєРѕРЅС‡РёР»РёСЃСЊ" << std::endl;
             break;
         }
     }
 }
 
-// Показать текущую очередь доставки
+// РџРѕРєР°Р·Р°С‚СЊ С‚РµРєСѓС‰СѓСЋ РѕС‡РµСЂРµРґСЊ РґРѕСЃС‚Р°РІРєРё
 void OnlineStore::showDeliveryQueue()
 {
-    std::cout << "ТЕКУЩАЯ ОЧЕРЕДЬ ДОСТАВКИ:" << std::endl;
+    std::cout << "РўР•РљРЈР©РђРЇ РћР§Р•Р Р•Р”Р¬ Р”РћРЎРўРђР’РљР:" << std::endl;
     delivery_queue->show_all_orders();
 }
 
-// Показать остатки на складе
+// РџРѕРєР°Р·Р°С‚СЊ РѕСЃС‚Р°С‚РєРё РЅР° СЃРєР»Р°РґРµ
 void OnlineStore::showWarehouseStatus()
 {
-    std::cout << "СОСТОЯНИЕ СКЛАДА:" << std::endl;
+    std::cout << "РЎРћРЎРўРћРЇРќРР• РЎРљР›РђР”Рђ:" << std::endl;
     warehouse->show_all_products();
 }
 
-// Обработка данных и выгрузка в файл
+// РћР±СЂР°Р±РѕС‚РєР° РґР°РЅРЅС‹С… Рё РІС‹РіСЂСѓР·РєР° РІ С„Р°Р№Р»
 void OnlineStore::exportActiveOrdersInRadius(double radius_km, const std::string& filename)
 {
     std::ofstream outFile(filename);
 
     if (!outFile.is_open()) {
-        std::cout << "Ошибка: невозможно открыть файл " << filename << std::endl;
+        std::cout << "РћС€РёР±РєР°: РЅРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р» " << filename << std::endl;
         return;
     }
 
-    std::cout << "Сохранение активных заказов в радиусе " << radius_km << " км в файл: " << filename << std::endl;
-    outFile << "СПИСОК АКТИВНЫХ ЗАКАЗОВ В РАДИУСЕ " << radius_km << " Км\n";
+    std::cout << "РЎРѕС…СЂР°РЅРµРЅРёРµ Р°РєС‚РёРІРЅС‹С… Р·Р°РєР°Р·РѕРІ РІ СЂР°РґРёСѓСЃРµ " << radius_km << " РєРј РІ С„Р°Р№Р»: " << filename << std::endl;
+    outFile << "РЎРџРРЎРћРљ РђРљРўРР’РќР«РҐ Р—РђРљРђР—РћР’ Р’ Р РђР”РРЈРЎР• " << radius_km << " РљРј\n";
     outFile << "==========================================\n";
-    outFile << "Название груза | Количество стеллажей\n";
+    outFile << "РќР°Р·РІР°РЅРёРµ РіСЂСѓР·Р° | РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РµР»Р»Р°Р¶РµР№\n";
     outFile << "------------------------------------------\n";
 
-    // Создание временного массива для заказов
+    // РЎРѕР·РґР°РЅРёРµ РІСЂРµРјРµРЅРЅРѕРіРѕ РјР°СЃСЃРёРІР° РґР»СЏ Р·Р°РєР°Р·РѕРІ
     Order* total_orders[MAX_ORDERS];
     unsigned int count_orders;
-    delivery_queue->getOrdersForSorting(total_orders, count_orders); // Берем заказы из очереди
+    delivery_queue->getOrdersForSorting(total_orders, count_orders); // Р‘РµСЂРµРј Р·Р°РєР°Р·С‹ РёР· РѕС‡РµСЂРµРґРё
 
     struct ProductCount {
         std::string name;
@@ -116,50 +116,50 @@ void OnlineStore::exportActiveOrdersInRadius(double radius_km, const std::string
     for (int i = 0; i < count_orders; i++) {
         Order* order = total_orders[i];
 
-        // првоерка, подходит ли заказ под условия
-        if ((order->getStatus() == "Принят" || order->getStatus() == "Готов к доставке") && !order->getIsFinish()
+        // РїСЂРІРѕРµСЂРєР°, РїРѕРґС…РѕРґРёС‚ Р»Рё Р·Р°РєР°Р· РїРѕРґ СѓСЃР»РѕРІРёСЏ
+        if ((order->getStatus() == "РџСЂРёРЅСЏС‚" || order->getStatus() == "Р“РѕС‚РѕРІ Рє РґРѕСЃС‚Р°РІРєРµ") && !order->getIsFinish()
             && order->getDistance() <= radius_km) {
 
             std::string product_name = order->getProduct()->getName();
 
-            // Ищем товар заказа уже по собранной статистике склада
+            // РС‰РµРј С‚РѕРІР°СЂ Р·Р°РєР°Р·Р° СѓР¶Рµ РїРѕ СЃРѕР±СЂР°РЅРЅРѕР№ СЃС‚Р°С‚РёСЃС‚РёРєРµ СЃРєР»Р°РґР°
             bool is_found = false;
-            for (int j = 0; j < stat_count; j++) { // наш stat_cout будет расти с каждой внешней итерацией цикла (на первой итерации всё по нулям)
+            for (int j = 0; j < stat_count; j++) { // РЅР°С€ stat_cout Р±СѓРґРµС‚ СЂР°СЃС‚Рё СЃ РєР°Р¶РґРѕР№ РІРЅРµС€РЅРµР№ РёС‚РµСЂР°С†РёРµР№ С†РёРєР»Р° (РЅР° РїРµСЂРІРѕР№ РёС‚РµСЂР°С†РёРё РІСЃС‘ РїРѕ РЅСѓР»СЏРј)
 
-                // Сравнение с существующими товарам (на первой итерации их нет, поэтому и цикла нет)
+                // РЎСЂР°РІРЅРµРЅРёРµ СЃ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРјРё С‚РѕРІР°СЂР°Рј (РЅР° РїРµСЂРІРѕР№ РёС‚РµСЂР°С†РёРё РёС… РЅРµС‚, РїРѕСЌС‚РѕРјСѓ Рё С†РёРєР»Р° РЅРµС‚)
                 if (product_stats[j].name == product_name) {
-                    product_stats[j].count++; // Нашли - увеличили счетчик
+                    product_stats[j].count++; // РќР°С€Р»Рё - СѓРІРµР»РёС‡РёР»Рё СЃС‡РµС‚С‡РёРє
                     is_found = true;
                     break;
                 }
             }
 
-            // На начальном этапе product_stats пустой, поэтому заполняем его элементами, которые не найдет врехний цикл
+            // РќР° РЅР°С‡Р°Р»СЊРЅРѕРј СЌС‚Р°РїРµ product_stats РїСѓСЃС‚РѕР№, РїРѕСЌС‚РѕРјСѓ Р·Р°РїРѕР»РЅСЏРµРј РµРіРѕ СЌР»РµРјРµРЅС‚Р°РјРё, РєРѕС‚РѕСЂС‹Рµ РЅРµ РЅР°Р№РґРµС‚ РІСЂРµС…РЅРёР№ С†РёРєР»
             if (!is_found && stat_count < MAX_PRODUCTS) {
-                // Кол-во добавленного товара = 1
+                // РљРѕР»-РІРѕ РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ С‚РѕРІР°СЂР° = 1
                 product_stats[stat_count].name = product_name;
                 product_stats[stat_count].count = 1;
-                stat_count++; // Общий счётик товаров +1
+                stat_count++; // РћР±С‰РёР№ СЃС‡С‘С‚РёРє С‚РѕРІР°СЂРѕРІ +1
             }
         }
     }
 
-    // Записываем статистику в файл
+    // Р—Р°РїРёСЃС‹РІР°РµРј СЃС‚Р°С‚РёСЃС‚РёРєСѓ РІ С„Р°Р№Р»
     for (int i = 0; i < stat_count; i++) {
         outFile << product_stats[i].name << " | " << product_stats[i].count << "\n";
     }
 
-    delivery_queue->updateQueueAfterSorting(total_orders, count_orders); // Восстанавливаем очередь
+    delivery_queue->updateQueueAfterSorting(total_orders, count_orders); // Р’РѕСЃСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕС‡РµСЂРµРґСЊ
     outFile.close();
 
-    std::cout << "Успешно сохранено " << stat_count << " товаров в " << filename << std::endl;
+    std::cout << "РЈСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅРѕ " << stat_count << " С‚РѕРІР°СЂРѕРІ РІ " << filename << std::endl;
 
 }
 
-// Деструктор
+// Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 OnlineStore::~OnlineStore()
 {
-    std::cout << "|--ЗАВЕРШЕНИЕ РАБОТЫ СИСТЕМЫ--|" << std::endl;
+    std::cout << "|--Р—РђР’Р•Р РЁР•РќРР• Р РђР‘РћРўР« РЎРРЎРўР•РњР«--|" << std::endl;
 
     delete driver;
     delete worker;
@@ -167,6 +167,6 @@ OnlineStore::~OnlineStore()
     delete delivery_queue;
     delete warehouse;
 
-    std::cout << "Память очищена, система завершила работу" << std::endl;
+    std::cout << "РџР°РјСЏС‚СЊ РѕС‡РёС‰РµРЅР°, СЃРёСЃС‚РµРјР° Р·Р°РІРµСЂС€РёР»Р° СЂР°Р±РѕС‚Сѓ" << std::endl;
 }
 

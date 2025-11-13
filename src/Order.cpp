@@ -1,19 +1,19 @@
-// Определение класса Order
+// РћРїСЂРµРґРµР»РµРЅРёРµ РєР»Р°СЃСЃР° Order
 #include "Order.h"
 
 Order::Order(unsigned int o_id, Product* o_product, Client* o_client, unsigned int o_day, unsigned int o_month, unsigned int o_year) :
-    id(o_id), product(o_product), client(o_client), day(o_day), month(o_month), year(o_year), status("Новый"), is_finish(false) {
+    id(o_id), product(o_product), client(o_client), day(o_day), month(o_month), year(o_year), status("РќРѕРІС‹Р№"), is_finish(false) {
 }
 
-// Геттеры
+// Р“РµС‚С‚РµСЂС‹
 unsigned int Order::getId() const { return id; }
 Client* Order::getClient() const { return client; }
 Product* Order::getProduct() const { return  product; }
 
-// Метод вывода даты (в формате строки DD.MM.YYYY)
+// РњРµС‚РѕРґ РІС‹РІРѕРґР° РґР°С‚С‹ (РІ С„РѕСЂРјР°С‚Рµ СЃС‚СЂРѕРєРё DD.MM.YYYY)
 std::string Order::getDate() const
 {
-    // Преобразование даты в строку через функцию-метод to_string()
+    // РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РґР°С‚С‹ РІ СЃС‚СЂРѕРєСѓ С‡РµСЂРµР· С„СѓРЅРєС†РёСЋ-РјРµС‚РѕРґ to_string()
     std::string dayStr = (day < 10) ? "0" + std::to_string(day) : std::to_string(day);
     std::string monthStr = (month < 10) ? "0" + std::to_string(month) : std::to_string(month);
 
@@ -23,29 +23,29 @@ unsigned int Order::getDay() const { return day; }
 unsigned int Order::getMonth() const { return month; }
 unsigned int Order::getYear() const { return  year; }
 
-// Метод преобразования даты в число
+// РњРµС‚РѕРґ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ РґР°С‚С‹ РІ С‡РёСЃР»Рѕ
 unsigned int Order::getDateAsNumber() const
 {
-    return year * 10000 + month * 100 + day; // Преобразование даты в число (чтобы сравнивать даты для сортировки) 
+    return year * 10000 + month * 100 + day; // РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РґР°С‚С‹ РІ С‡РёСЃР»Рѕ (С‡С‚РѕР±С‹ СЃСЂР°РІРЅРёРІР°С‚СЊ РґР°С‚С‹ РґР»СЏ СЃРѕСЂС‚РёСЂРѕРІРєРё) 
 }
 std::string Order::getStatus() const { return status; }
 bool Order::getIsFinish() const { return is_finish; }
 double Order::getDistance() const { return client->getDistance(); }
 
-// Сеттеры
+// РЎРµС‚С‚РµСЂС‹
 void Order::setStatus(std::string new_status) { status = new_status; }
 void Order::markCompleted()
 {
     is_finish = true;
-    status = "Доставлен";
+    status = "Р”РѕСЃС‚Р°РІР»РµРЅ";
 }
 
-// Вывод информации о заказе
+// Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё Рѕ Р·Р°РєР°Р·Рµ
 void Order::show_info() {
-    std::cout << "=== Заказ №" << id << " ===" << std::endl;
-    std::cout << "Дата: " << getDate() << std::endl;
-    std::cout << "Статус: " << status << std::endl;
-    std::cout << "Завершен: " << (is_finish ? "да" : "нет") << std::endl;
+    std::cout << "=== Р—Р°РєР°Р· в„–" << id << " ===" << std::endl;
+    std::cout << "Р”Р°С‚Р°: " << getDate() << std::endl;
+    std::cout << "РЎС‚Р°С‚СѓСЃ: " << status << std::endl;
+    std::cout << "Р—Р°РІРµСЂС€РµРЅ: " << (is_finish ? "РґР°" : "РЅРµС‚") << std::endl;
     client->show_info();
     product->show_info();
 }

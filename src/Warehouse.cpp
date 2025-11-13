@@ -1,22 +1,22 @@
-// Определние класса Warehouse
+// РћРїСЂРµРґРµР»РЅРёРµ РєР»Р°СЃСЃР° Warehouse
 #include "Warehouse.h"
 
 Warehouse::Warehouse(std::string w_address) : address(w_address), product_count(0) {
-    // Начальная инициализация нулями в конструкторе 
+    // РќР°С‡Р°Р»СЊРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РЅСѓР»СЏРјРё РІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ 
     for (int i = 0; i < MAX_PRODUCTS; i++) {
         products[i] = nullptr;
     }
 }
 
-// Геттеры
+// Р“РµС‚С‚РµСЂС‹
 std::string Warehouse::getLocation() const { return address; }
 unsigned int Warehouse::getProductCount() const { return product_count; }
 
-// Методы
-int Warehouse::addProduct(Product* product) // Добавление товара
+// РњРµС‚РѕРґС‹
+int Warehouse::addProduct(Product* product) // Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР°
 {
     if (product_count >= MAX_PRODUCTS) {
-        std::cout << "Ошибка: склад переполнен" << std::endl;
+        std::cout << "РћС€РёР±РєР°: СЃРєР»Р°Рґ РїРµСЂРµРїРѕР»РЅРµРЅ" << std::endl;
         return -1;
     }
 
@@ -25,40 +25,40 @@ int Warehouse::addProduct(Product* product) // Добавление товара
     return 1;
 }
 
-bool Warehouse::checkProduct(unsigned int p_id) // Косвенная проверка наличия товара на складе
+bool Warehouse::checkProduct(unsigned int p_id) // РљРѕСЃРІРµРЅРЅР°СЏ РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ С‚РѕРІР°СЂР° РЅР° СЃРєР»Р°РґРµ
 {
     for (int i = 0; i < product_count; i++) {
         if (products[i]->getId() == p_id) {
-            //std::cout << "Товар " << products[i]->getName() << " есть в наличи!" << std::endl;
-            //std::cout << "Кол-во на складе: " << products[i]->getCount() << std::endl;
+            //std::cout << "РўРѕРІР°СЂ " << products[i]->getName() << " РµСЃС‚СЊ РІ РЅР°Р»РёС‡Рё!" << std::endl;
+            //std::cout << "РљРѕР»-РІРѕ РЅР° СЃРєР»Р°РґРµ: " << products[i]->getCount() << std::endl;
             return true;
         }
     }
-    std::cout << "Товар отсутствует на складе" << std::endl;
+    std::cout << "РўРѕРІР°СЂ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РЅР° СЃРєР»Р°РґРµ" << std::endl;
     return false;
 }
 
-// Реализация продажи товаров (вычитка кол-ва из склада) 
-// 1) Найти товар по ID
-Product* Warehouse::findProduct(unsigned int p_id) // Поиск товара на складе по ID 
+// Р РµР°Р»РёР·Р°С†РёСЏ РїСЂРѕРґР°Р¶Рё С‚РѕРІР°СЂРѕРІ (РІС‹С‡РёС‚РєР° РєРѕР»-РІР° РёР· СЃРєР»Р°РґР°) 
+// 1) РќР°Р№С‚Рё С‚РѕРІР°СЂ РїРѕ ID
+Product* Warehouse::findProduct(unsigned int p_id) // РџРѕРёСЃРє С‚РѕРІР°СЂР° РЅР° СЃРєР»Р°РґРµ РїРѕ ID 
 {
     for (int i = 0; i < product_count; i++) {
 
         if (products[i]->getId() == p_id) {
-            //std::cout << "Товар (" << products[i]->getId() << ") найден" << std::endl;
+            //std::cout << "РўРѕРІР°СЂ (" << products[i]->getId() << ") РЅР°Р№РґРµРЅ" << std::endl;
             return products[i];
         }
     }
 
-    std::cout << "Товар не найден" << std::endl;
+    std::cout << "РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ" << std::endl;
     return nullptr;
 }
 
-// 2) Уменьшение кол-ва товара из склада (для вычитки из склада)
+// 2) РЈРјРµРЅСЊС€РµРЅРёРµ РєРѕР»-РІР° С‚РѕРІР°СЂР° РёР· СЃРєР»Р°РґР° (РґР»СЏ РІС‹С‡РёС‚РєРё РёР· СЃРєР»Р°РґР°)
 bool Warehouse::reduceCountProducts(unsigned int p_id, unsigned int count)
 {
-    Product* product = findProduct(p_id); // Находим товар
-    // Проверяем нашли ли товар и достаточно ли его
+    Product* product = findProduct(p_id); // РќР°С…РѕРґРёРј С‚РѕРІР°СЂ
+    // РџСЂРѕРІРµСЂСЏРµРј РЅР°С€Р»Рё Р»Рё С‚РѕРІР°СЂ Рё РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ Р»Рё РµРіРѕ
     if (product && product->getCount() >= count) {
         product->setCount(product->getCount() - count);
         return true;
@@ -67,9 +67,9 @@ bool Warehouse::reduceCountProducts(unsigned int p_id, unsigned int count)
     return false;
 }
 
-void Warehouse::show_all_products() // Вывод все хтоваров на складе
+void Warehouse::show_all_products() // Р’С‹РІРѕРґ РІСЃРµ С…С‚РѕРІР°СЂРѕРІ РЅР° СЃРєР»Р°РґРµ
 {
-    std::cout << "=== ТОВАРЫ НА СКЛАДЕ (" << product_count << " шт.) ===" << std::endl;
+    std::cout << "=== РўРћР’РђР Р« РќРђ РЎРљР›РђР”Р• (" << product_count << " С€С‚.) ===" << std::endl;
     for (int i = 0; i < product_count; i++) {
         products[i]->show_info();
         std::cout << "---" << std::endl;
